@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.nku.team1.main.Collatz;
-
 public class LongestCollatz {
 
 	protected List<Long> seq;
