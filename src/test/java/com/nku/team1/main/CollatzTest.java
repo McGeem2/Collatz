@@ -1,11 +1,17 @@
-import static org.hamcrest.core.IsEqual.equalTo;
+package com.nku.team1.main;
+
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.nku.team1.exception.CollatzOutOfBoundsException;
 
 public class CollatzTest {
 	Collatz collatz0;
@@ -57,28 +63,28 @@ public class CollatzTest {
 	@Test
 	public void testNext10() throws Exception {
 
-		assertThat(collatz10.next(), is(equalTo(5)));
+		assertThat(collatz10.next(), is(equalTo(5L)));
 
 	}
 
 	@Test
 	public void testNext1() throws Exception {
 
-		assertThat(collatz100.next(), is(equalTo(50)));
+		assertThat(collatz100.next(), is(equalTo(50L)));
 
 	}
 
 	@Test
 	public void testNext3() throws Exception {
 
-		assertThat(collatz3.next(), is(equalTo(10)));
+		assertThat(collatz3.next(), is(equalTo(10L)));
 
 	}
 
 	@Test
 	public void testNext9() throws Exception {
 
-		assertThat(collatz9.next(), is(equalTo(28)));
+		assertThat(collatz9.next(), is(equalTo(28L)));
 
 	}
 
@@ -100,9 +106,9 @@ public class CollatzTest {
 	public void testIterate10() throws Exception {
 		int count = 0;
 		
-		Iterator it = collatz10.iterator();
+		Iterator<Long> it = collatz10.iterator();
 		while(it.hasNext()){
-			assertThat(it.next(), is(equalTo(test10[count])));
+			assertThat(it.next(), is(equalTo((long) test10[count])));
 			count++;
 		}
 	}
@@ -113,7 +119,7 @@ public class CollatzTest {
 		Iterator it = collatz100.iterator();
 		while(it.hasNext())
 		{
-			assertThat(it.next(), is(equalTo(test100[count])));
+			assertThat(it.next(), is(equalTo((long) test100[count])));
 			count++;
 		}
 	}
