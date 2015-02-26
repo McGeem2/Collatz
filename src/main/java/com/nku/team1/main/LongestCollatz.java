@@ -11,6 +11,7 @@ import com.nku.team1.exception.CollatzOutOfBoundsException;
 public class LongestCollatz {
 
 	protected List<Long> seq;
+	protected int[] numbers;
 
 	/**
 	 * Finds the starting point with the longest chain.
@@ -20,29 +21,41 @@ public class LongestCollatz {
 	 * @throws CollatzOutOfBoundsException will be thrown if n is < 1
 	 */
 	public int findLongest(int n) {
-		int maxLength = 0;
-		int maxKey = 0;
 
 		Map<Long, Integer> map = new HashMap<Long, Integer>();
-		int[] numbers = getNumbersInArray(n);
+		numbers = getNumbersInArray(n);
 
 		for (int i = 0; i < numbers.length; i++) {
 			if (numbers[i] == 0)
 				continue;
 			int addedLength = createSequence(numbers[i], map);
-			Iterator<Long> it = seq.iterator();
-			boolean isFirst = true;
-			while (it.hasNext()) {
-				long num = it.next();
-				map.put(num, seq.size() + addedLength);
-				if (!isFirst && num < n) {
-					numbers[(int)(n - num)] = 0;
-				}
-				it.remove();
-				isFirst = false;
-			}
+			addSequenceToMap(map, n, addedLength);
+			
 		}
 
+		return getStartForMaxLength(map, numbers);
+	}
+
+	protected void addSequenceToMap(Map<Long, Integer> map, int n, int addedLength) {
+		Iterator<Long> it = seq.iterator();
+		boolean isFirst = true;
+		while (it.hasNext()) {
+			long num = it.next();
+			map.put(num, seq.size() + addedLength);
+			if (!isFirst && num < n) {
+				numbers[(int)(n - num)] = 0;
+			}
+			it.remove();
+			isFirst = false;
+		}
+		
+	}
+
+	protected int getStartForMaxLength(Map<Long, Integer> map, int[] numbers) {
+
+		int maxLength = 0;
+		int maxKey = 0;
+		
 		for (int i : numbers) {
 			if (i == 0)
 				continue;
